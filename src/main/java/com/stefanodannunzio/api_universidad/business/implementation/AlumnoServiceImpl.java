@@ -6,7 +6,10 @@ import org.springframework.stereotype.Service;
 import com.stefanodannunzio.api_universidad.business.AlumnoService;
 import com.stefanodannunzio.api_universidad.model.Alumno;
 import com.stefanodannunzio.api_universidad.model.Asignatura;
+import com.stefanodannunzio.api_universidad.model.EstadoAsignatura;
 import com.stefanodannunzio.api_universidad.model.dto.AlumnoDto;
+import com.stefanodannunzio.api_universidad.model.exception.EstadoIncorrectoException;
+import com.stefanodannunzio.api_universidad.model.exception.NotaIncorrectaException;
 import com.stefanodannunzio.api_universidad.persistence.AlumnoDao;
 import com.stefanodannunzio.api_universidad.persistence.exception.AlumnoNotFoundException;
 import com.stefanodannunzio.api_universidad.persistence.exception.AsignaturaNotFoundException;
@@ -43,21 +46,37 @@ public class AlumnoServiceImpl implements AlumnoService {
     }
 
     @Override
-    public void cursarAsignatura(Integer id, Integer id_asignatura) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException {
+    public void cursarAsignatura(Integer id, String nombre_materia) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException {
         Alumno a = alumnoDao.findById(id);
-        //Asignatura asignatura = a.getAsignaturaById(id_asignatura);
+        //Busco la asignatura, basandome en el nombre de la materia que tiene dentro
+        Asignatura asig = a.getAsignaturas().stream().filter(asignatura -> asignatura.getNombreMateria().equals(nombre_materia)).findFirst().orElse(null);
+        if (asig == null) {
+            throw new AsignaturaNotFoundException("No se encontro la asignatura");
+        }
+        asig.cursar();;
     }
 
     @Override
-    public void aprobarAsignatura(Integer id, Integer id_asignatura) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'aprobarAsignatura'");
+    public void aprobarAsignatura(Integer id, String nombre_materia, int nota) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, EstadoIncorrectoException, NotaIncorrectaException {
+        Alumno a = alumnoDao.findById(id);
+        //Busco la asignatura, basandome en el nombre de la materia que tiene dentro
+        Asignatura asig = a.getAsignaturas().stream().filter(asignatura -> asignatura.getNombreMateria().equals(nombre_materia)).findFirst().orElse(null);
+        if (asig == null) {
+            throw new AsignaturaNotFoundException("No se encontro la asignatura");
+        }
+        asig.aprobar(nota);
+
     }
 
     @Override
-    public void perderAsignatura(Integer id, Integer id_asignatura) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'perderAsignatura'");
+    public void perderAsignatura(Integer id, String nombre_materia) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException {
+        Alumno a = alumnoDao.findById(id);
+        //Busco la asignatura, basandome en el nombre de la materia que tiene dentro
+        Asignatura asig = a.getAsignaturas().stream().filter(asignatura -> asignatura.getNombreMateria().equals(nombre_materia)).findFirst().orElse(null);
+        if (asig == null) {
+            throw new AsignaturaNotFoundException("No se encontro la asignatura");
+        }
+        asig.perder();
     }
     
     

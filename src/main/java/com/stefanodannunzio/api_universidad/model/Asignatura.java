@@ -36,8 +36,16 @@ public class Asignatura {
         return this.materia;
     }
 
-    public void setMateriaId(Materia materia) {
+    public void setMateria(Materia materia) {
         this.materia = materia;
+    }
+
+    public String getNombreMateria() {
+        return this.materia.getNombre();
+    }
+
+    public void setNombreMateria(String nombre) {
+        this.materia.setNombre(nombre);
     }
 
     public Profesor getProfesor() {
