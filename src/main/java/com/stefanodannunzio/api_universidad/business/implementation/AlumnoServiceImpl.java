@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import com.stefanodannunzio.api_universidad.business.AlumnoService;
 import com.stefanodannunzio.api_universidad.model.Alumno;
 import com.stefanodannunzio.api_universidad.model.Asignatura;
-import com.stefanodannunzio.api_universidad.model.EstadoAsignatura;
 import com.stefanodannunzio.api_universidad.model.dto.AlumnoDto;
 import com.stefanodannunzio.api_universidad.model.exception.EstadoIncorrectoException;
 import com.stefanodannunzio.api_universidad.model.exception.NotaIncorrectaException;

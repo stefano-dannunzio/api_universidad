@@ -18,7 +18,7 @@ public class Asignatura {
 
     public Asignatura(Materia materia) {
         this.materia = materia;
-        this.estado = EstadoAsignatura.CURSANDO;
+        this.estado = EstadoAsignatura.NO_CURSADA;
         this.nota = null;
     }
 
