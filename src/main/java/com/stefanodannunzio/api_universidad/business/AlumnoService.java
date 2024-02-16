@@ -3,6 +3,7 @@ package com.stefanodannunzio.api_universidad.business;
 import com.stefanodannunzio.api_universidad.model.Alumno;
 import com.stefanodannunzio.api_universidad.model.Asignatura;
 import com.stefanodannunzio.api_universidad.model.dto.AlumnoDto;
+import com.stefanodannunzio.api_universidad.model.exception.CorrelativasNoAprobadasException;
 import com.stefanodannunzio.api_universidad.model.exception.EstadoIncorrectoException;
 import com.stefanodannunzio.api_universidad.model.exception.NotaIncorrectaException;
 import com.stefanodannunzio.api_universidad.persistence.exception.AlumnoNotFoundException;
@@ -24,15 +25,15 @@ public interface AlumnoService {
 
         // Cursar asignatura
 
-        void cursarAsignatura(Integer id, String nombre_materia) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException;
+        void cursarAsignatura(Integer id, Integer materiaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException;
 
         // Aprobar asignatura
 
-        void aprobarAsignatura(Integer id, String nombre_materia, int nota) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, EstadoIncorrectoException, NotaIncorrectaException;
+        void aprobarAsignatura(Integer id, Integer materiaId, int nota) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, EstadoIncorrectoException, NotaIncorrectaException, CorrelativasNoAprobadasException;
 
         // Perder regularidad de una asignatura
 
-        void perderAsignatura(Integer id, String nombre_materia) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException;
+        void perderAsignatura(Integer id, Integer materiaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException;
     
         
 }

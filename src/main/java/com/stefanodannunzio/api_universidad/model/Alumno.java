@@ -95,7 +95,9 @@ public class Alumno {
         }
     }
 
-    public void aprobarAsignatura(Asignatura asignatura, Integer nota) throws CorrelativasNoAprobadasException, EstadoIncorrectoException, NotaIncorrectaException {
+    public void aprobarAsignatura(Integer materiaId, Integer nota) throws CorrelativasNoAprobadasException, EstadoIncorrectoException, NotaIncorrectaException {
+        Asignatura asignatura = this.asignaturas.stream().filter(a -> a.getMateria().getMateriaId() == materiaId)
+                .findFirst().get();
         chequearCorrelativas(asignatura);
         asignatura.aprobar(nota);
     }
