@@ -7,7 +7,7 @@ public interface CarreraDao {
 
     Carrera save(Carrera carrera);
 
-    Carrera update(Integer idCarrera, Carrera carrera) throws CarreraNotFoundException;
+    Carrera update(Integer idCarrera, Carrera c) throws CarreraNotFoundException;
 
     void delete(Integer idCarrera) throws CarreraNotFoundException;
 
