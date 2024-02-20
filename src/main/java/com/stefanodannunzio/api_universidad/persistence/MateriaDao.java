@@ -8,7 +8,7 @@ import com.stefanodannunzio.api_universidad.persistence.exception.MateriaNotFoun
 public interface MateriaDao {
     Materia save(Materia materia);
 
-    Materia update(Integer idMateria, Materia materia) throws MateriaNotFoundException;
+    Materia update(Integer idMateria, Materia m) throws MateriaNotFoundException;
 
     void delete(Integer idMateria) throws MateriaNotFoundException;
 
