@@ -20,35 +20,35 @@ public class MateriaController {
     private MateriaService materiaService;
 
     //Crear materia
-    @Transactional
+
     @PostMapping
     public void crearMateria(@RequestBody MateriaDto materiaDto) {
         materiaService.crearMateria(materiaDto);
     }
 
     //Modificar materia
-    @Transactional
+
     @PutMapping("/{idMateria}")
     public void modificarMateria(@PathVariable int idMateria, @RequestBody MateriaDto materiaDto) throws IllegalArgumentException, MateriaNotFoundException {
         materiaService.modificarMateria(idMateria, materiaDto);
     }
 
     //Eliminar materia
-    @Transactional
+
     @DeleteMapping("/{idMateria}")
     public void eliminarMateria(@PathVariable int idMateria) throws MateriaNotFoundException {
         materiaService.eliminarMateria(idMateria);
     }
 
     //Obtener materia por nombre
-    @Transactional
+
     @GetMapping("/name")
     public Materia obtenerMateriaPorNombre(@RequestParam String nombre) throws MateriaNotFoundException {
         return materiaService.obtenerMateriaPorNombre(nombre);
     }
 
     //Listar todas las materias ordenadas por nombre ascendente o descendente y código ascendente o descendente
-    @Transactional
+
     @GetMapping()
     public List<Materia> listarMaterias(@RequestParam String order) throws MateriaNotFoundException {
         return materiaService.listarMaterias(order);

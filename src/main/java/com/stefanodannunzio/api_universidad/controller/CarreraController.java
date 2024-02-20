@@ -16,21 +16,21 @@ public class CarreraController {
     private CarreraService carreraService;
 
     //Crear carrera
-    @Transactional
+
     @PostMapping
     public void crearCarrera(@RequestBody CarreraDto carreraDto) {
         carreraService.crearCarrera(carreraDto);
     }
 
     //Modificar carrera
-    @Transactional
+
     @PutMapping("/{idCarrera}")
     public void modificarCarrera(@PathVariable int idCarrera, @RequestBody CarreraDto carreraDto) throws IllegalArgumentException, CarreraNotFoundException {
         carreraService.modificarCarrera(idCarrera, carreraDto);
     }
 
     //Eliminar carrera
-    @Transactional
+
     @DeleteMapping("/{idCarrera}")
     public void eliminarCarrera(@PathVariable int idCarrera) throws CarreraNotFoundException {
         carreraService.eliminarCarrera(idCarrera);

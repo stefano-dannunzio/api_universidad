@@ -7,14 +7,14 @@ import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+
 public class Carrera {
     private String nombre;
-    @Id
+
     private long id;
     private int id_departamento;
     private int cuatrimestres;
-    @OneToMany
+
     private List<Materia> materias;
 
     public Carrera() {

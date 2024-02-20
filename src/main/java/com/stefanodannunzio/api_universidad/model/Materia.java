@@ -6,16 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
+
 public class Materia {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private int materiaId;
     private String nombre;
     private int anio;
     private int cuatrimestre;
-    @ManyToMany
+
     private List<Materia> correlativas;
     private int carreraId;
 
