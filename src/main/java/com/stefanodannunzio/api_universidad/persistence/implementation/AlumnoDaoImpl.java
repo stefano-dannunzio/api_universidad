@@ -10,9 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class AlumnoDaoImpl implements AlumnoDao {
 
-    @Autowired
-    private EntityManager entityManager;
-
     @Override
     public Alumno save(Alumno a) {
         entityManager.persist(a);
