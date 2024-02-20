@@ -17,23 +17,23 @@ public interface AlumnoService {
     
         // Modificar alumno
     
-        Alumno modificarAlumno(Integer id, AlumnoDto inputData) throws IllegalArgumentException, AlumnoNotFoundException;
+        Alumno modificarAlumno(Long id, AlumnoDto inputData) throws IllegalArgumentException, AlumnoNotFoundException;
     
         // Eliminar alumno
     
-        void eliminarAlumno(Integer id) throws AlumnoNotFoundException;
+        void eliminarAlumno(Long id) throws AlumnoNotFoundException;
 
         // Cursar asignatura
 
-        void cursarAsignatura(Integer id, Integer materiaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException;
+        void cursarAsignatura(Long id, Integer materiaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException;
 
         // Aprobar asignatura
 
-        void aprobarAsignatura(Integer id, Integer materiaId, int nota) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, EstadoIncorrectoException, NotaIncorrectaException, CorrelativasNoAprobadasException;
+        void aprobarAsignatura(Long id, Integer materiaId, int nota) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, EstadoIncorrectoException, NotaIncorrectaException, CorrelativasNoAprobadasException;
 
         // Perder regularidad de una asignatura
 
-        void perderAsignatura(Integer id, Integer materiaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException;
+        void perderAsignatura(Long id, Integer materiaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException;
     
         
 }

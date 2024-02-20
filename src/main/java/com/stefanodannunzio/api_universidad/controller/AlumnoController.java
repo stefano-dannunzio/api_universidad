@@ -27,31 +27,31 @@ public class AlumnoController {
 
     //Modificar alumno
     @PutMapping("/{idAlumno}")
-    public Alumno modificarAlumno(@PathVariable int idAlumno, @RequestBody AlumnoDto alumnoDto) throws IllegalArgumentException, AlumnoNotFoundException {
+    public Alumno modificarAlumno(@PathVariable long idAlumno, @RequestBody AlumnoDto alumnoDto) throws IllegalArgumentException, AlumnoNotFoundException {
         return alumnoService.modificarAlumno(idAlumno, alumnoDto);
     }
 
     //Eliminar alumno
     @DeleteMapping("/{idAlumno}")
-    public void eliminarAlumno(@PathVariable int idAlumno) throws AlumnoNotFoundException {
+    public void eliminarAlumno(@PathVariable long idAlumno) throws AlumnoNotFoundException {
         alumnoService.eliminarAlumno(idAlumno);
     }
 
     //Cursar una asignatura
     @PutMapping("/{idAlumno}/asignatura/{idMateria}")
-    public void cursarAsignatura(@PathVariable int idAlumno, @PathVariable int idMateria) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException {
+    public void cursarAsignatura(@PathVariable long idAlumno, @PathVariable int idMateria) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException {
         alumnoService.cursarAsignatura(idAlumno, idMateria);
     }
 
     //Aprobar una asignatura
     @PutMapping("/{idAlumno}/asignatura/{idMateria}/nota/{nota}")
-    public void aprobarAsignatura(@PathVariable int idAlumno, @PathVariable int idMateria, @PathVariable int nota) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException, EstadoIncorrectoException, NotaIncorrectaException {
+    public void aprobarAsignatura(@PathVariable long idAlumno, @PathVariable int idMateria, @PathVariable int nota) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException, EstadoIncorrectoException, NotaIncorrectaException {
         alumnoService.aprobarAsignatura(idAlumno, idMateria, nota);
     }
 
     //Perder regularidad de una asignatura
     @PutMapping("/{idAlumno}/asignatura/{idMateria}/perder")
-    public void perderAsignatura(@PathVariable int idAlumno, @PathVariable int idMateria) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException {
+    public void perderAsignatura(@PathVariable long idAlumno, @PathVariable int idMateria) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException {
         alumnoService.perderAsignatura(idAlumno, idMateria);
     }
 

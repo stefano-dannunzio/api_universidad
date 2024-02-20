@@ -11,7 +11,7 @@ import java.util.List;
 public class Carrera {
     private String nombre;
 
-    private long id;
+    private int id;
     private int id_departamento;
     private int cuatrimestres;
 
@@ -21,7 +21,7 @@ public class Carrera {
         materias = new ArrayList<>();
     }
 
-    public Carrera(String nombre, long id, int id_departamento, int cuatrimestres) {
+    public Carrera(String nombre, int id, int id_departamento, int cuatrimestres) {
         this.nombre = nombre;
         this.id = id;
         this.id_departamento = id_departamento;
@@ -39,11 +39,11 @@ public class Carrera {
         this.nombre = nombre;
     }
 
-    public long getId() {
+    public int getId() {
         return this.id;
     }
 
-    public void setId(long id){
+    public void setId(int id){
         this.id = id;
     }
 

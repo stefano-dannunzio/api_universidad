@@ -31,7 +31,7 @@ public class AlumnoServiceImpl implements AlumnoService {
     }
 
     @Override
-    public Alumno modificarAlumno(Integer id, AlumnoDto inputData) throws IllegalArgumentException, AlumnoNotFoundException {
+    public Alumno modificarAlumno(Long id, AlumnoDto inputData) throws IllegalArgumentException, AlumnoNotFoundException {
         Alumno a = alumnoDao.findById(id);
         a.setNombre(inputData.getNombre());
         a.setApellido(inputData.getApellido());
@@ -41,25 +41,25 @@ public class AlumnoServiceImpl implements AlumnoService {
     }
 
     @Override
-    public void eliminarAlumno(Integer id) throws AlumnoNotFoundException {
+    public void eliminarAlumno(Long id) throws AlumnoNotFoundException {
         alumnoDao.delete(id);
     }
 
     @Override
-    public void cursarAsignatura(Integer id, Integer materiaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException {
+    public void cursarAsignatura(Long id, Integer materiaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException {
         Alumno a = alumnoDao.findById(id);
         a.cursarAsignatura(materiaId);
     }
 
     @Override
-    public void aprobarAsignatura(Integer id, Integer materiaId, int nota) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, EstadoIncorrectoException, NotaIncorrectaException, CorrelativasNoAprobadasException {
+    public void aprobarAsignatura(Long id, Integer materiaId, int nota) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, EstadoIncorrectoException, NotaIncorrectaException, CorrelativasNoAprobadasException {
         Alumno a = alumnoDao.findById(id);
         a.aprobarAsignatura(materiaId, nota);
 
     }
 
     @Override
-    public void perderAsignatura(Integer id, Integer materiaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException {
+    public void perderAsignatura(Long id, Integer materiaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException {
         Alumno a = alumnoDao.findById(id);
         a.perderAsignatura(materiaId);
     }

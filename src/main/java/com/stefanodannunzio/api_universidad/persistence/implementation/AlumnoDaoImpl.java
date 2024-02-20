@@ -3,22 +3,24 @@ package com.stefanodannunzio.api_universidad.persistence.implementation;
 import com.stefanodannunzio.api_universidad.model.Alumno;
 import com.stefanodannunzio.api_universidad.persistence.AlumnoDao;
 import com.stefanodannunzio.api_universidad.persistence.exception.AlumnoNotFoundException;
-import jakarta.persistence.EntityManager;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import java.util.HashMap;
+import java.util.Map;
 
 @Repository
 public class AlumnoDaoImpl implements AlumnoDao {
 
+    private Map<Long, Alumno> alumnos = new HashMap<>();
+
     @Override
     public Alumno save(Alumno a) {
-        entityManager.persist(a);
+        alumnos.put(a.getId(), a);
         return a;
     }
 
     @Override
-    public Alumno update(Integer idAlumno, Alumno a) throws AlumnoNotFoundException {
-        Alumno alumno = entityManager.find(Alumno.class, idAlumno);
+    public Alumno update(Long idAlumno, Alumno a) throws AlumnoNotFoundException {
+        Alumno alumno = alumnos.get(idAlumno);
         if (alumno == null) {
             throw new AlumnoNotFoundException("No se encontró el alumno con el ID: " + idAlumno);
         }
@@ -27,24 +29,24 @@ public class AlumnoDaoImpl implements AlumnoDao {
         alumno.setApellido(a.getApellido());
         alumno.setDni(a.getDni());
 
-        entityManager.merge(alumno);
+        alumnos.put(idAlumno, alumno);
 
         return alumno;
     }
 
     @Override
-    public void delete(Integer idAlumno) throws AlumnoNotFoundException {
-        Alumno alumno = entityManager.find(Alumno.class, idAlumno);
+    public void delete(Long idAlumno) throws AlumnoNotFoundException {
+        Alumno alumno = alumnos.get(idAlumno);
         if (alumno == null) {
             throw new AlumnoNotFoundException("No se encontró el alumno con el ID: " + idAlumno);
         }
-        entityManager.remove(alumno);
+        alumnos.remove(idAlumno);
 
     }
 
     @Override
-    public Alumno findById(Integer idAlumno) throws AlumnoNotFoundException {
-        Alumno alumno = entityManager.find(Alumno.class, idAlumno);
+    public Alumno findById(Long idAlumno) throws AlumnoNotFoundException {
+        Alumno alumno = alumnos.get(idAlumno);
         if (alumno == null) {
             throw new AlumnoNotFoundException("No se encontró el alumno con el ID: " + idAlumno);
         }

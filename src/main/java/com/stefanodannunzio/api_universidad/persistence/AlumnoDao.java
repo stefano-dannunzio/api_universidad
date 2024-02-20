@@ -7,10 +7,10 @@ public interface AlumnoDao {
 
     Alumno save(Alumno a);
 
-    Alumno update(Integer idAlumno, Alumno a) throws AlumnoNotFoundException;
+    Alumno update(Long idAlumno, Alumno a) throws AlumnoNotFoundException;
 
-    void delete(Integer idAlumno) throws AlumnoNotFoundException;
+    void delete(Long idAlumno) throws AlumnoNotFoundException;
 
-    Alumno findById(Integer idAlumno) throws AlumnoNotFoundException;
+    Alumno findById(Long idAlumno) throws AlumnoNotFoundException;
     
 }

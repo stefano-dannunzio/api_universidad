@@ -2,13 +2,7 @@ package com.stefanodannunzio.api_universidad.persistence.implementation;
 
 import com.stefanodannunzio.api_universidad.model.Materia;
 import com.stefanodannunzio.api_universidad.persistence.MateriaDao;
-import com.stefanodannunzio.api_universidad.persistence.exception.AlumnoNotFoundException;
 import com.stefanodannunzio.api_universidad.persistence.exception.MateriaNotFoundException;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -62,7 +56,7 @@ public class MateriaDaoImpl implements MateriaDao {
 
     @Override
     public Materia findById(Integer id) throws MateriaNotFoundException {
-        Materia materia = materias.get(idMateria);
+        Materia materia = materias.get(id);
         if (materia == null) {
             throw new MateriaNotFoundException("No se encontró la materia con el ID: " + id);
         }
