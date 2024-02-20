@@ -4,12 +4,20 @@ import java.util.Optional;
 
 import com.stefanodannunzio.api_universidad.model.exception.EstadoIncorrectoException;
 import com.stefanodannunzio.api_universidad.model.exception.NotaIncorrectaException;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
+@Entity
 public class Asignatura {
+    @OneToOne
     private Materia materia;
     private EstadoAsignatura estado;
     private Integer nota;
+    @OneToOne
     private Profesor profesor;
+    @Id
+    private Long id;
 
 
     public Asignatura() {
@@ -83,8 +91,15 @@ public class Asignatura {
         }
         this.estado = EstadoAsignatura.APROBADA;
         this.nota = nota;
-    } 
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
 }
 
 

@@ -51,10 +51,10 @@ public class MateriaDaoImpl implements MateriaDao {
     }
 
     @Override
-    public Materia findByName(String name) throws MateriaNotFoundException {
-        Materia materia = entityManager.find(Materia.class, name);
+    public Materia findByName(String nombre) throws MateriaNotFoundException {
+        Materia materia = entityManager.find(Materia.class, nombre);
         if (materia == null) {
-            throw new MateriaNotFoundException("No se encontró la materia con el nombre: " + name);
+            throw new MateriaNotFoundException("No se encontró la materia con el nombre: " + nombre);
         }
         return materia;
     }
@@ -93,5 +93,5 @@ public class MateriaDaoImpl implements MateriaDao {
 
         return entityManager.createQuery(criteriaQuery).getResultList();
     }
-    
+
 }

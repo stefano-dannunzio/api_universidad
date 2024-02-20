@@ -6,12 +6,19 @@ import java.util.List;
 import com.stefanodannunzio.api_universidad.model.exception.CorrelativasNoAprobadasException;
 import com.stefanodannunzio.api_universidad.model.exception.EstadoIncorrectoException;
 import com.stefanodannunzio.api_universidad.model.exception.NotaIncorrectaException;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
+@Entity
 public class Alumno {
+    @Id
     private long id;
     private String nombre;
     private String apellido;
     private long dni;
+    @ManyToMany
     private List<Asignatura> asignaturas;
 
     public Alumno() {

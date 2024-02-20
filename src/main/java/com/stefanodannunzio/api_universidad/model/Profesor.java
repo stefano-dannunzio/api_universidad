@@ -1,14 +1,21 @@
 package com.stefanodannunzio.api_universidad.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
 import java.util.List;
 
+@Entity
 public class Profesor {
     
+    @Id
     private long id;
     private String nombre;
     private String apellido;
     private String titulo;
 
+    @OneToMany
     private List<Asignatura> AsignaturasDictadas;
     
     public Profesor() {
