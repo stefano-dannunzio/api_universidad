@@ -6,15 +6,14 @@ import java.util.List;
 import com.stefanodannunzio.api_universidad.model.exception.CorrelativasNoAprobadasException;
 import com.stefanodannunzio.api_universidad.model.exception.EstadoIncorrectoException;
 import com.stefanodannunzio.api_universidad.model.exception.NotaIncorrectaException;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
+
 
 
 public class Alumno {
 
     private long id;
+
+    private static Long lastId = 0L;
     private String nombre;
     private String apellido;
     private long dni;
@@ -22,10 +21,11 @@ public class Alumno {
     private List<Asignatura> asignaturas;
 
     public Alumno() {
+        this.id = getNextId();
     }
 
-    public Alumno(long id, String nombre, String apellido, long dni) {
-        this.id = id;
+    public Alumno(String nombre, String apellido, long dni) {
+        this.id = getNextId();
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
@@ -75,6 +75,10 @@ public class Alumno {
     }
 
      // Otros metodos
+
+    private Long getNextId() {
+        return ++lastId;
+    }
 
     public void agregarAsignatura(Asignatura asignatura) {
         this.asignaturas.add(asignatura);

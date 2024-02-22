@@ -1,8 +1,5 @@
 package com.stefanodannunzio.api_universidad.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,12 +9,14 @@ public class Carrera {
     private String nombre;
 
     private int id;
+    private static int lastId = 0;
     private int id_departamento;
     private int cuatrimestres;
 
     private List<Materia> materias;
 
     public Carrera() {
+        this.id = getNextId();
         materias = new ArrayList<>();
     }
 
@@ -72,6 +71,10 @@ public class Carrera {
     }
 
     // Otros metodos
+
+    private int getNextId() {
+        return ++lastId;
+    }
 
     public void agregarMateria(Materia materia) {
         materias.add(materia);

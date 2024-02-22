@@ -2,7 +2,7 @@ package com.stefanodannunzio.api_universidad.controller;
 
 import java.util.List;
 
-import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +24,7 @@ public class MateriaController {
     @PostMapping
     public void crearMateria(@RequestBody MateriaDto materiaDto) {
         materiaService.crearMateria(materiaDto);
+        
     }
 
     //Modificar materia

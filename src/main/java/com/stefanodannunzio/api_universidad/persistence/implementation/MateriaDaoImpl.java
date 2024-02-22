@@ -46,7 +46,7 @@ public class MateriaDaoImpl implements MateriaDao {
     @Override
     public Materia findByName(String nombre) throws MateriaNotFoundException {
         for (Materia materia : materias.values()) {
-            if (materia.getNombre().equals(nombre)) {
+            if (materia.getNombre().toLowerCase().contains(nombre.toLowerCase())) {
                 return materia;
             }
         }

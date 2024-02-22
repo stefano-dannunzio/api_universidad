@@ -3,11 +3,13 @@ package com.stefanodannunzio.api_universidad.persistence.implementation;
 import com.stefanodannunzio.api_universidad.model.Carrera;
 import com.stefanodannunzio.api_universidad.persistence.CarreraDao;
 import com.stefanodannunzio.api_universidad.persistence.exception.CarreraNotFoundException;
+import org.springframework.stereotype.Repository;
+
 import java.util.HashMap;
 import java.util.Map;
 
 
-
+@Repository
 public class CarreraDaoImpl implements CarreraDao {
 
     private Map<Integer, Carrera> carreras = new HashMap<>();

@@ -1,28 +1,26 @@
 package com.stefanodannunzio.api_universidad.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-
 import java.util.List;
 
-@Entity
+
 public class Profesor {
     
-    @Id
+
     private long id;
+    private static Long lastId = 0L;
     private String nombre;
     private String apellido;
     private String titulo;
 
-    @OneToMany
+
     private List<Asignatura> AsignaturasDictadas;
     
     public Profesor() {
+        this.id = getNextId();
     }
 
-    public Profesor(long id, String nombre, String apellido, String titulo) {
-        this.id = id;
+    public Profesor(String nombre, String apellido, String titulo) {
+        this.id = getNextId();
         this.nombre = nombre;
         this.apellido = apellido;
         this.titulo = titulo;
@@ -71,6 +69,10 @@ public class Profesor {
     }
 
     // Otros metodos
+
+    private Long getNextId() {
+        return ++lastId;
+    }
 
     public void agregarAsignatura(Asignatura asignatura) {
         this.AsignaturasDictadas.add(asignatura);

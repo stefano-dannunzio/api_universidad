@@ -4,9 +4,7 @@ import java.util.Optional;
 
 import com.stefanodannunzio.api_universidad.model.exception.EstadoIncorrectoException;
 import com.stefanodannunzio.api_universidad.model.exception.NotaIncorrectaException;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+
 
 
 public class Asignatura {

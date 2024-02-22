@@ -1,6 +1,6 @@
 package com.stefanodannunzio.api_universidad.model;
 
-import jakarta.persistence.*;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,7 @@ public class Materia {
 
 
     private int materiaId;
+    private static int lastId = 0;
     private String nombre;
     private int anio;
     private int cuatrimestre;
@@ -19,12 +20,12 @@ public class Materia {
     private int carreraId;
 
     public Materia() {
-
+        this.materiaId = getNextId();
         correlativas = new ArrayList<Materia>();
     }
 
-    public Materia(int materiaId, String nombre, int anio, int cuatrimestre, List<Materia> correlativas, int carreraId) {
-        this.materiaId = materiaId;
+    public Materia(String nombre, int anio, int cuatrimestre, List<Materia> correlativas, int carreraId) {
+        this.materiaId = getNextId();
         this.nombre = nombre;
         this.anio = anio;
         this.cuatrimestre = cuatrimestre;
@@ -79,6 +80,12 @@ public class Materia {
 
     public void setCarreraId(int carreraId) {
         this.carreraId = carreraId;
+    }
+
+    // Otros metodos
+
+    private int getNextId() {
+        return ++lastId;
     }
 
     // Equals
