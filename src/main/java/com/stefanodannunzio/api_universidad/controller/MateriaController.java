@@ -4,6 +4,8 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.stefanodannunzio.api_universidad.business.MateriaService;
@@ -22,37 +24,38 @@ public class MateriaController {
     //Crear materia
 
     @PostMapping
-    public void crearMateria(@RequestBody MateriaDto materiaDto) {
-        materiaService.crearMateria(materiaDto);
-        
+    public ResponseEntity<Materia> crearMateria(@RequestBody MateriaDto materiaDto) {        
+        return ResponseEntity.status(HttpStatus.CREATED).body(materiaService.crearMateria(materiaDto));
+
     }
 
     //Modificar materia
 
     @PutMapping("/{idMateria}")
-    public void modificarMateria(@PathVariable int idMateria, @RequestBody MateriaDto materiaDto) throws IllegalArgumentException, MateriaNotFoundException {
-        materiaService.modificarMateria(idMateria, materiaDto);
+    public ResponseEntity<Materia> modificarMateria(@PathVariable int idMateria, @RequestBody MateriaDto materiaDto) throws IllegalArgumentException, MateriaNotFoundException {
+        return ResponseEntity.ok(materiaService.modificarMateria(idMateria, materiaDto));
     }
 
     //Eliminar materia
 
     @DeleteMapping("/{idMateria}")
-    public void eliminarMateria(@PathVariable int idMateria) throws MateriaNotFoundException {
+    public ResponseEntity<Void> eliminarMateria(@PathVariable int idMateria) throws MateriaNotFoundException {
         materiaService.eliminarMateria(idMateria);
+        return ResponseEntity.noContent().build();
     }
 
     //Obtener materia por nombre
 
     @GetMapping("/name")
-    public Materia obtenerMateriaPorNombre(@RequestParam String nombre) throws MateriaNotFoundException {
-        return materiaService.obtenerMateriaPorNombre(nombre);
+    public ResponseEntity<Materia> obtenerMateriaPorNombre(@RequestParam String nombre) throws MateriaNotFoundException {
+        return ResponseEntity.ok(materiaService.obtenerMateriaPorNombre(nombre));
     }
 
     //Listar todas las materias ordenadas por nombre ascendente o descendente y código ascendente o descendente
 
     @GetMapping()
-    public List<Materia> listarMaterias(@RequestParam String order) throws MateriaNotFoundException {
-        return materiaService.listarMaterias(order);
+    public ResponseEntity<List<Materia>> listarMaterias(@RequestParam String order) throws MateriaNotFoundException {
+        return ResponseEntity.ok(materiaService.listarMaterias(order));
     }
     
 }
