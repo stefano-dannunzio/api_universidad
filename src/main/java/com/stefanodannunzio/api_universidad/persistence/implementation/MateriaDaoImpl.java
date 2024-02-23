@@ -87,4 +87,14 @@ public class MateriaDaoImpl implements MateriaDao {
 
     }
 
+    @Override
+    public void agregarCorrelativa(int idMateria, int idCorrelativa) {
+        materias.get(idMateria).agregarCorrelativa(idCorrelativa);
+    }
+
+    @Override
+    public void eliminarCorrelativa(int idMateria, int idCorrelativa) {
+        materias.get(idMateria).quitarCorrelativa(idCorrelativa);
+    }
+
 }

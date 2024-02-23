@@ -8,6 +8,7 @@ import com.stefanodannunzio.api_universidad.model.exception.EstadoIncorrectoExce
 import com.stefanodannunzio.api_universidad.model.exception.NotaIncorrectaException;
 import com.stefanodannunzio.api_universidad.persistence.exception.AlumnoNotFoundException;
 import com.stefanodannunzio.api_universidad.persistence.exception.AsignaturaNotFoundException;
+import com.stefanodannunzio.api_universidad.persistence.exception.MateriaNotFoundException;
 
 public interface AlumnoService {
         
@@ -25,15 +26,15 @@ public interface AlumnoService {
 
         // Cursar asignatura
 
-        void cursarAsignatura(Long id, Integer materiaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException;
+        void cursarAsignatura(Long id, Long asignaturaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException;
 
         // Aprobar asignatura
 
-        void aprobarAsignatura(Long id, Integer materiaId, int nota) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, EstadoIncorrectoException, NotaIncorrectaException, CorrelativasNoAprobadasException;
+        void aprobarAsignatura(Long id, Long asignaturaId, int nota) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, EstadoIncorrectoException, NotaIncorrectaException, CorrelativasNoAprobadasException, MateriaNotFoundException;
 
         // Perder regularidad de una asignatura
 
-        void perderAsignatura(Long id, Integer materiaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException;
+        void perderAsignatura(Long id, Long asignaturaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException;
     
         
 }

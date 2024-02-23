@@ -17,4 +17,8 @@ public interface MateriaDao {
     Materia findById(Integer id) throws MateriaNotFoundException;
 
     List<Materia> sortAll(String order);
+
+    void agregarCorrelativa(int idMateria, int idCorrelativa);
+
+    void eliminarCorrelativa(int idMateria, int idCorrelativa);
 }

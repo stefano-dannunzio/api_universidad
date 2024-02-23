@@ -16,15 +16,15 @@ public class Materia {
     private int anio;
     private int cuatrimestre;
 
-    private List<Materia> correlativas;
+    private List<Integer> correlativas;
     private int carreraId;
 
     public Materia() {
         this.materiaId = getNextId();
-        correlativas = new ArrayList<Materia>();
+        correlativas = new ArrayList<Integer>();
     }
 
-    public Materia(String nombre, int anio, int cuatrimestre, List<Materia> correlativas, int carreraId) {
+    public Materia(String nombre, int anio, int cuatrimestre, List<Integer> correlativas, int carreraId) {
         this.materiaId = getNextId();
         this.nombre = nombre;
         this.anio = anio;
@@ -66,11 +66,11 @@ public class Materia {
         this.cuatrimestre = cuatrimestre;
     }
 
-    public List<Materia> getCorrelativas() {
+    public List<Integer> getCorrelativas() {
         return this.correlativas;
     }
 
-    public void setCorrelativas(List<Materia> correlativas) {
+    public void setCorrelativas(List<Integer> correlativas) {
         this.correlativas = correlativas;
     }
 
@@ -86,6 +86,16 @@ public class Materia {
 
     private int getNextId() {
         return ++lastId;
+    }
+
+    // Agregar correlativa
+    public void agregarCorrelativa(int idCorrelativa) {
+        correlativas.add(idCorrelativa);
+    }
+    
+    // Quitar correlativa
+    public void quitarCorrelativa(int idCorrelativa) {
+        correlativas.remove(idCorrelativa);
     }
 
     // Equals

@@ -1,13 +1,17 @@
 package com.stefanodannunzio.api_universidad.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import com.stefanodannunzio.api_universidad.model.exception.CorrelativasNoAprobadasException;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.stefanodannunzio.api_universidad.model.exception.EstadoIncorrectoException;
 import com.stefanodannunzio.api_universidad.model.exception.NotaIncorrectaException;
-
-
+import com.stefanodannunzio.api_universidad.persistence.AlumnoDao;
+import com.stefanodannunzio.api_universidad.persistence.MateriaDao;
+import com.stefanodannunzio.api_universidad.persistence.exception.MateriaNotFoundException;
 
 public class Alumno {
 
@@ -18,7 +22,12 @@ public class Alumno {
     private String apellido;
     private long dni;
 
-    private List<Asignatura> asignaturas;
+    @Autowired
+    private AlumnoDao alumnoDao;
+    
+    @Autowired
+    private MateriaDao materiaDao;
+
 
     public Alumno() {
         this.id = getNextId();
@@ -29,7 +38,7 @@ public class Alumno {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
-        asignaturas = new ArrayList<>();
+        
     }
 
     // Getters & Setters
@@ -66,13 +75,7 @@ public class Alumno {
         this.dni = dni;
     }
 
-    public List<Asignatura> getAsignaturas() {
-        return this.asignaturas;
-    }
 
-    public void setAsignaturas(List<Asignatura> asignaturas) {
-        this.asignaturas = asignaturas;
-    }
 
      // Otros metodos
 
@@ -80,37 +83,67 @@ public class Alumno {
         return ++lastId;
     }
 
-    public void agregarAsignatura(Asignatura asignatura) {
-        this.asignaturas.add(asignatura);
+    public boolean chequearCorrelativas(Asignatura asignatura) throws MateriaNotFoundException {
+        Materia materia = asignatura.getMateria();
+        List<Integer> idsCorrelativas = materia.getCorrelativas();
+        List<Materia> correlativas = new ArrayList<>();
+        for (Integer idCorrelativa : idsCorrelativas) {
+            correlativas.add(materiaDao.findById(idCorrelativa));
+        }
+        for (Materia correlativa : correlativas) {
+            if (alumnoDao.getEstadoAsignatura(this.getId(), correlativa) != EstadoAsignatura.APROBADA) {
+                return false;
+            }
+        }
+        return true;
     }
     
-    public void perderAsignatura(int materiaId) {
-        Asignatura asignatura = this.asignaturas.stream().filter(a -> a.getMateria().getMateriaId() == materiaId)
-                .findFirst().get();
+
+    public void cursarAsignatura(Long asignaturaId) {
+        Map<Long, Asignatura> asignaturas = alumnoDao.getAsignaturas(this.getId());
+        Asignatura asignatura = asignaturas.get(asignaturaId);
+        if (asignatura == null) {
+            throw new IllegalArgumentException("No se encontró la asignatura con el ID: " + asignaturaId);
+        }
+        if (asignatura.getEstado() == EstadoAsignatura.CURSADA || asignatura.getEstado() == EstadoAsignatura.APROBADA) {
+            throw new IllegalArgumentException("La asignatura ya fue cursada");
+        }
+        //No hay necesidad de chequear correlativas para cursar
+        asignatura.cursar();
+        
+    }
+
+    public void aprobarAsignatura(Long asignaturaId, int nota) throws MateriaNotFoundException, EstadoIncorrectoException, NotaIncorrectaException {
+        Map<Long, Asignatura> asignaturas = alumnoDao.getAsignaturas(this.getId());
+        Asignatura asignatura = asignaturas.get(asignaturaId);
+        if (asignatura == null) {
+            throw new IllegalArgumentException("No se encontró la asignatura con el ID: " + asignaturaId);
+        }
+        if (asignatura.getEstado() != EstadoAsignatura.CURSADA) {
+            throw new IllegalArgumentException("La asignatura no se encuentra cursada");
+        }
+        if (nota < 4 || nota > 10) {
+            throw new IllegalArgumentException("La nota debe ser entre 4 y 10");
+        }
+        if (!chequearCorrelativas(asignatura)) {
+            throw new IllegalArgumentException("No se cumplieron las correlativas");
+        }
+        asignatura.aprobar(nota);
+    }
+
+    public void perderAsignatura(Long asignaturaId) {
+        Map<Long, Asignatura> asignaturas = alumnoDao.getAsignaturas(this.getId());
+        Asignatura asignatura = asignaturas.get(asignaturaId);
+        if (asignatura == null) {
+            throw new IllegalArgumentException("No se encontró la asignatura con el ID: " + asignaturaId);
+        }
+        if (asignatura.getEstado() != EstadoAsignatura.NO_CURSADA) {
+            throw new IllegalArgumentException("La asignatura ya fue cursada, desaprobada o aprobada");
+        }
+        //No hay necesidad de chequear correlativas para perder
         asignatura.perder();
     }
 
-    public void cursarAsignatura(int materiaId) throws CorrelativasNoAprobadasException {
-        Asignatura asignatura = this.asignaturas.stream().filter(a -> a.getMateria().getMateriaId() == materiaId)
-                .findFirst().get();
-        chequearCorrelativas(asignatura);
-        asignatura.cursar();
-    }
-
-    private void chequearCorrelativas(Asignatura asignatura) throws CorrelativasNoAprobadasException {
-        for (Materia correlativa : asignatura.getMateria().getCorrelativas()) {
-            if (this.asignaturas.stream().filter(a -> a.getMateria().getMateriaId() == correlativa.getMateriaId())
-                    .findFirst().get().getEstado() != EstadoAsignatura.APROBADA) {
-                throw new CorrelativasNoAprobadasException("No se cumplen las correlativas");
-            }
-        }
-    }
-
-    public void aprobarAsignatura(Integer materiaId, Integer nota) throws CorrelativasNoAprobadasException, EstadoIncorrectoException, NotaIncorrectaException {
-        Asignatura asignatura = this.asignaturas.stream().filter(a -> a.getMateria().getMateriaId() == materiaId)
-                .findFirst().get();
-        chequearCorrelativas(asignatura);
-        asignatura.aprobar(nota);
-    }
+    
 
 }

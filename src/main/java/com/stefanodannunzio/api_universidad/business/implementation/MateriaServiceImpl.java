@@ -60,5 +60,15 @@ public class MateriaServiceImpl implements MateriaService {
     public List<Materia> listarMaterias(String order) throws MateriaNotFoundException {
         return materiaDao.sortAll(order);
     }
+
+    @Override
+    public void agregarCorrelativa(int idMateria, int idCorrelativa) {
+        materiaDao.agregarCorrelativa(idMateria, idCorrelativa);
+    }
+
+    @Override
+    public void eliminarCorrelativa(int idMateria, int idCorrelativa) {
+        materiaDao.eliminarCorrelativa(idMateria, idCorrelativa);
+    }
     
 }

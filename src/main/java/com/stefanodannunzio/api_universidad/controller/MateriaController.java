@@ -57,5 +57,21 @@ public class MateriaController {
     public ResponseEntity<List<Materia>> listarMaterias(@RequestParam String order) throws MateriaNotFoundException {
         return ResponseEntity.ok(materiaService.listarMaterias(order));
     }
+
+    //Agregar correlativa
+
+    @PutMapping("/{idMateria}/correlativas/{idCorrelativa}")
+    public ResponseEntity<Void> agregarCorrelativa(@PathVariable int idMateria, @PathVariable int idCorrelativa) throws MateriaNotFoundException {
+        materiaService.agregarCorrelativa(idMateria, idCorrelativa);
+        return ResponseEntity.noContent().build();
+    }
+
+    //Eliminar correlativa
+
+    @DeleteMapping("/{idMateria}/correlativas/{idCorrelativa}")
+    public ResponseEntity<Void> eliminarCorrelativa(@PathVariable int idMateria, @PathVariable int idCorrelativa) throws MateriaNotFoundException {
+        materiaService.eliminarCorrelativa(idMateria, idCorrelativa);
+        return ResponseEntity.noContent().build();
+    }
     
 }

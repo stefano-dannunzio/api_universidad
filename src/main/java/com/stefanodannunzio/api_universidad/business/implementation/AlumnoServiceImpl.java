@@ -13,6 +13,7 @@ import com.stefanodannunzio.api_universidad.model.exception.NotaIncorrectaExcept
 import com.stefanodannunzio.api_universidad.persistence.AlumnoDao;
 import com.stefanodannunzio.api_universidad.persistence.exception.AlumnoNotFoundException;
 import com.stefanodannunzio.api_universidad.persistence.exception.AsignaturaNotFoundException;
+import com.stefanodannunzio.api_universidad.persistence.exception.MateriaNotFoundException;
 
 @Service
 public class AlumnoServiceImpl implements AlumnoService {
@@ -46,22 +47,22 @@ public class AlumnoServiceImpl implements AlumnoService {
     }
 
     @Override
-    public void cursarAsignatura(Long id, Integer materiaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException {
+    public void cursarAsignatura(Long id, Long asignaturaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException {
         Alumno a = alumnoDao.findById(id);
-        a.cursarAsignatura(materiaId);
+        a.cursarAsignatura(asignaturaId);
     }
 
     @Override
-    public void aprobarAsignatura(Long id, Integer materiaId, int nota) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, EstadoIncorrectoException, NotaIncorrectaException, CorrelativasNoAprobadasException {
+    public void aprobarAsignatura(Long id, Long asignaturaId, int nota) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, EstadoIncorrectoException, NotaIncorrectaException, CorrelativasNoAprobadasException, MateriaNotFoundException {
         Alumno a = alumnoDao.findById(id);
-        a.aprobarAsignatura(materiaId, nota);
+        a.aprobarAsignatura(asignaturaId, nota);
 
     }
 
     @Override
-    public void perderAsignatura(Long id, Integer materiaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException {
+    public void perderAsignatura(Long id, Long asignaturaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException {
         Alumno a = alumnoDao.findById(id);
-        a.perderAsignatura(materiaId);
+        a.perderAsignatura(asignaturaId);
     }
     
     
