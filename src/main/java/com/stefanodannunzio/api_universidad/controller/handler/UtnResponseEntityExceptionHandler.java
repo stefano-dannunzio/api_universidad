@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.stefanodannunzio.api_universidad.model.exception.CorrelativasNoAprobadasException;
+import com.stefanodannunzio.api_universidad.model.exception.EstadoIncorrectoException;
+import com.stefanodannunzio.api_universidad.model.exception.NotaIncorrectaException;
 import com.stefanodannunzio.api_universidad.persistence.exception.AlumnoNotFoundException;
 import com.stefanodannunzio.api_universidad.persistence.exception.AsignaturaNotFoundException;
 import com.stefanodannunzio.api_universidad.persistence.exception.CarreraNotFoundException;
@@ -85,6 +88,42 @@ public class UtnResponseEntityExceptionHandler extends ResponseEntityExceptionHa
         return handleExceptionInternal(ex, error,
                 new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
+
+        @ExceptionHandler(value
+                = { CorrelativasNoAprobadasException.class })
+        protected ResponseEntity<Object> handleCorrelativasNoAprobadas(
+                CorrelativasNoAprobadasException ex, WebRequest request) {
+            String exceptionMessage = ex.getMessage();
+            CustomApiError error = new CustomApiError();
+            error.setErrorCode(11);
+            error.setErrorMessage(exceptionMessage);
+            return handleExceptionInternal(ex, error,
+                    new HttpHeaders(), HttpStatus.CONFLICT, request);
+        }
+
+        @ExceptionHandler(value
+                = { EstadoIncorrectoException.class })
+        protected ResponseEntity<Object> handleEstadoIncorrecto(
+                EstadoIncorrectoException ex, WebRequest request) {
+            String exceptionMessage = ex.getMessage();
+            CustomApiError error = new CustomApiError();
+            error.setErrorCode(12);
+            error.setErrorMessage(exceptionMessage);
+            return handleExceptionInternal(ex, error,
+                    new HttpHeaders(), HttpStatus.CONFLICT, request);
+        }
+
+        @ExceptionHandler(value
+                = { NotaIncorrectaException.class })
+        protected ResponseEntity<Object> handleNotaIncorrecta(
+                NotaIncorrectaException ex, WebRequest request) {
+            String exceptionMessage = ex.getMessage();
+            CustomApiError error = new CustomApiError();
+            error.setErrorCode(13);
+            error.setErrorMessage(exceptionMessage);
+            return handleExceptionInternal(ex, error,
+                    new HttpHeaders(), HttpStatus.CONFLICT, request);
+        }
 
 
 

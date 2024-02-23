@@ -104,11 +104,6 @@ public class Alumno {
 
      public void aprobarAsignatura(int id, int nota) throws EstadoIncorrectoException, NotaIncorrectaException {
          Asignatura asignatura = asignaturas.get(id);
-         /* if (chequearCorrelativas(id)) {
-             asignatura.aprobar(nota);
-         } else {
-             throw new EstadoIncorrectoException("No se cumplen las correlativas");
-         } */
          asignatura.aprobar(nota);
         
      }

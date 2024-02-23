@@ -68,6 +68,9 @@ public class AlumnoServiceImpl implements AlumnoService {
 
     @Override
     public void cursarAsignatura(Integer dni, Integer asignaturaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException {
+        if (asignaturaId < 0 || asignaturaId > 3){
+            throw new AsignaturaNotFoundException("No se encontró la asignatura con el ID: " + asignaturaId);
+        }
         Alumno a = alumnoDao.findByDNI(dni);
         a.cursarAsignatura(asignaturaId);
     }
@@ -75,6 +78,9 @@ public class AlumnoServiceImpl implements AlumnoService {
 
     @Override
     public void aprobarAsignatura(Integer dni, Integer asignaturaId, int nota) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, EstadoIncorrectoException, NotaIncorrectaException, CorrelativasNoAprobadasException, MateriaNotFoundException {
+        if (asignaturaId < 0 || asignaturaId > 3){
+            throw new AsignaturaNotFoundException("No se encontró la asignatura con el ID: " + asignaturaId);
+        }
         Alumno a = alumnoDao.findByDNI(dni);
 
          if (nota < 4 || nota > 10){
@@ -87,6 +93,9 @@ public class AlumnoServiceImpl implements AlumnoService {
 
     @Override
     public void perderAsignatura(Integer dni, Integer asignaturaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException {
+        if (asignaturaId < 0 || asignaturaId > 3){
+            throw new AsignaturaNotFoundException("No se encontró la asignatura con el ID: " + asignaturaId);
+        }
         Alumno a = alumnoDao.findByDNI(dni);
         a.perderAsignatura(asignaturaId);
     }

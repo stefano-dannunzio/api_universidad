@@ -42,7 +42,7 @@ public class AlumnoController {
     }
 
     //Cursar una asignatura
-    @PutMapping("/{dniAlumno}/asignatura/{idAsignatura}")
+    @PutMapping("/{dniAlumno}/asignatura/{idAsignatura}/cursar")
     public ResponseEntity<String> cursarAsignatura(@PathVariable int dniAlumno, @PathVariable int idAsignatura) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException {
         alumnoService.cursarAsignatura(dniAlumno, idAsignatura);
 
@@ -50,7 +50,7 @@ public class AlumnoController {
     }
 
     //Aprobar una asignatura
-    @PutMapping("/{dniAlumno}/asignatura/{idAsignatura}/nota/{nota}")
+    @PutMapping("/{dniAlumno}/asignatura/{idAsignatura}/aprobar/{nota}")
     public ResponseEntity<String> aprobarAsignatura(@PathVariable int dniAlumno, @PathVariable int idAsignatura, @PathVariable int nota) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException, EstadoIncorrectoException, NotaIncorrectaException, MateriaNotFoundException {
         alumnoService.aprobarAsignatura(dniAlumno, idAsignatura, nota);
         return ResponseEntity.ok("La asignatura "+ alumnoService.getNombreAsignatura(dniAlumno, idAsignatura) + " fue aprobada con " + alumnoService.getNotaAsignatura(dniAlumno, idAsignatura) + ".");
