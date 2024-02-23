@@ -30,36 +30,37 @@ public class AlumnoController {
 
     //Modificar alumno
     @PutMapping("/{idAlumno}")
-    public ResponseEntity<Alumno> modificarAlumno(@PathVariable long idAlumno, @RequestBody AlumnoDto alumnoDto) throws IllegalArgumentException, AlumnoNotFoundException {
-        return ResponseEntity.ok(alumnoService.modificarAlumno(idAlumno, alumnoDto));
+    public ResponseEntity<Alumno> modificarAlumno(@PathVariable int dniAlumno, @RequestBody AlumnoDto alumnoDto) throws IllegalArgumentException, AlumnoNotFoundException {
+        return ResponseEntity.ok(alumnoService.modificarAlumno(dniAlumno, alumnoDto));
     }
 
     //Eliminar alumno
     @DeleteMapping("/{idAlumno}")
-    public ResponseEntity<Void> eliminarAlumno(@PathVariable long idAlumno) throws AlumnoNotFoundException {
-        alumnoService.eliminarAlumno(idAlumno);
+    public ResponseEntity<Void> eliminarAlumno(@PathVariable int dniAlumno) throws AlumnoNotFoundException {
+        alumnoService.eliminarAlumno(dniAlumno);
         return ResponseEntity.noContent().build();
     }
 
     //Cursar una asignatura
     @PutMapping("/{idAlumno}/asignatura/{idMateria}")
-    public ResponseEntity<Void> cursarAsignatura(@PathVariable long idAlumno, @PathVariable long idMateria) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException {
-        alumnoService.cursarAsignatura(idAlumno, idMateria);
+    public ResponseEntity<Void> cursarAsignatura(@PathVariable int dniAlumno, @PathVariable int idAsignatura) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException {
+        alumnoService.cursarAsignatura(dniAlumno, idAsignatura);
         return ResponseEntity.noContent().build();
     }
 
     //Aprobar una asignatura
     @PutMapping("/{idAlumno}/asignatura/{idMateria}/nota/{nota}")
-    public ResponseEntity<Void> aprobarAsignatura(@PathVariable long idAlumno, @PathVariable long idMateria, @PathVariable int nota) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException, EstadoIncorrectoException, NotaIncorrectaException, MateriaNotFoundException {
-        alumnoService.aprobarAsignatura(idAlumno, idMateria, nota);
+    public ResponseEntity<Void> aprobarAsignatura(@PathVariable int dniAlumno, @PathVariable int idAsignatura, @PathVariable int nota) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException, EstadoIncorrectoException, NotaIncorrectaException, MateriaNotFoundException {
+        alumnoService.aprobarAsignatura(dniAlumno, idAsignatura, nota);
         return ResponseEntity.noContent().build();
     }
 
     //Perder regularidad de una asignatura
     @PutMapping("/{idAlumno}/asignatura/{idMateria}/perder")
-    public ResponseEntity<Void> perderAsignatura(@PathVariable long idAlumno, @PathVariable long idMateria) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException {
-        alumnoService.perderAsignatura(idAlumno, idMateria);
+    public ResponseEntity<Void> perderAsignatura(@PathVariable int dniAlumno, @PathVariable int idAsignatura) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException {
+        alumnoService.perderAsignatura(dniAlumno, idAsignatura);
         return ResponseEntity.noContent().build();
+        
     }
 
     

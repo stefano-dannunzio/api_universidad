@@ -24,8 +24,8 @@ public class Materia {
         correlativas = new ArrayList<Integer>();
     }
 
-    public Materia(String nombre, int anio, int cuatrimestre, List<Integer> correlativas, int carreraId) {
-        this.materiaId = getNextId();
+    public Materia(String nombre, int anio, int cuatrimestre, List<Integer> correlativas, int carreraId, int materiaId) {
+        this.materiaId = materiaId;
         this.nombre = nombre;
         this.anio = anio;
         this.cuatrimestre = cuatrimestre;

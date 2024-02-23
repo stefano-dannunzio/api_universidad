@@ -3,7 +3,7 @@ package com.stefanodannunzio.api_universidad.model.dto;
 public class AlumnoDto {
     private String nombre;
     private String apellido;
-    private long dni;
+    private int dni;
 
     // Getters & Setters
 
@@ -23,11 +23,11 @@ public class AlumnoDto {
         this.apellido = apellido;
     }
 
-    public long getDni() {
+    public int getDni() {
         return this.dni;
     }
 
-    public void setDni(long dni){
+    public void setDni(int dni){
         this.dni = dni;
     }
 

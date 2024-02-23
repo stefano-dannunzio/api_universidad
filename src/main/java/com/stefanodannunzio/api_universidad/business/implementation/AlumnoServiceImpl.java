@@ -18,8 +18,13 @@ import com.stefanodannunzio.api_universidad.persistence.exception.MateriaNotFoun
 @Service
 public class AlumnoServiceImpl implements AlumnoService {
 
-    @Autowired
+    
     private AlumnoDao alumnoDao;
+
+    @Autowired
+    public void setAlumnoDao(AlumnoDao alumnoDao) {
+        this.alumnoDao = alumnoDao;
+    }
 
     @Override
     public Alumno crearAlumno(AlumnoDto inputData) throws IllegalArgumentException {
@@ -32,38 +37,40 @@ public class AlumnoServiceImpl implements AlumnoService {
     }
 
     @Override
-    public Alumno modificarAlumno(Long id, AlumnoDto inputData) throws IllegalArgumentException, AlumnoNotFoundException {
-        Alumno a = alumnoDao.findById(id);
+    public Alumno modificarAlumno(Integer dni, AlumnoDto inputData) throws IllegalArgumentException, AlumnoNotFoundException {
+        Alumno a = alumnoDao.findByDNI(dni);
         a.setNombre(inputData.getNombre());
         a.setApellido(inputData.getApellido());
         a.setDni(inputData.getDni());
-        alumnoDao.update(id, a);
+        alumnoDao.update(dni, a);
         return a;
     }
 
     @Override
-    public void eliminarAlumno(Long id) throws AlumnoNotFoundException {
-        alumnoDao.delete(id);
+    public void eliminarAlumno(Integer dni) throws AlumnoNotFoundException {
+        alumnoDao.delete(dni);
     }
 
     @Override
-    public void cursarAsignatura(Long id, Long asignaturaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException {
-        Alumno a = alumnoDao.findById(id);
+    public void cursarAsignatura(Integer dni, Integer asignaturaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException {
+        Alumno a = alumnoDao.findByDNI(dni);
         a.cursarAsignatura(asignaturaId);
     }
 
     @Override
-    public void aprobarAsignatura(Long id, Long asignaturaId, int nota) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, EstadoIncorrectoException, NotaIncorrectaException, CorrelativasNoAprobadasException, MateriaNotFoundException {
-        Alumno a = alumnoDao.findById(id);
+    public void aprobarAsignatura(Integer dni, Integer asignaturaId, int nota) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, EstadoIncorrectoException, NotaIncorrectaException, CorrelativasNoAprobadasException, MateriaNotFoundException {
+        Alumno a = alumnoDao.findByDNI(dni);
         a.aprobarAsignatura(asignaturaId, nota);
 
     }
 
     @Override
-    public void perderAsignatura(Long id, Long asignaturaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException {
-        Alumno a = alumnoDao.findById(id);
+    public void perderAsignatura(Integer dni, Integer asignaturaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException {
+        Alumno a = alumnoDao.findByDNI(dni);
         a.perderAsignatura(asignaturaId);
     }
+
+
     
     
 }

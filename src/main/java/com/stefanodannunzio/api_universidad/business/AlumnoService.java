@@ -18,23 +18,25 @@ public interface AlumnoService {
     
         // Modificar alumno
     
-        Alumno modificarAlumno(Long id, AlumnoDto inputData) throws IllegalArgumentException, AlumnoNotFoundException;
+        Alumno modificarAlumno(Integer dni, AlumnoDto inputData) throws IllegalArgumentException, AlumnoNotFoundException;
     
         // Eliminar alumno
     
-        void eliminarAlumno(Long id) throws AlumnoNotFoundException;
+        void eliminarAlumno(Integer dni) throws AlumnoNotFoundException;
 
         // Cursar asignatura
 
-        void cursarAsignatura(Long id, Long asignaturaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException;
+        void cursarAsignatura(Integer dni, Integer asignaturaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException;
 
         // Aprobar asignatura
 
-        void aprobarAsignatura(Long id, Long asignaturaId, int nota) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, EstadoIncorrectoException, NotaIncorrectaException, CorrelativasNoAprobadasException, MateriaNotFoundException;
+        void aprobarAsignatura(Integer dni, Integer asignaturaId, int nota) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, EstadoIncorrectoException, NotaIncorrectaException, CorrelativasNoAprobadasException, MateriaNotFoundException;
 
         // Perder regularidad de una asignatura
 
-        void perderAsignatura(Long id, Long asignaturaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException;
+        void perderAsignatura(Integer dni, Integer asignaturaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException;
+
+        
     
         
 }

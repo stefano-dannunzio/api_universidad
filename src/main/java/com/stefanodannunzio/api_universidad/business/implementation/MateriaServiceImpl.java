@@ -13,8 +13,13 @@ import com.stefanodannunzio.api_universidad.persistence.exception.MateriaNotFoun
 
 @Service
 public class MateriaServiceImpl implements MateriaService {
-    @Autowired
+    
     private MateriaDao materiaDao;
+
+    @Autowired
+    public void setMateriaDao(MateriaDao materiaDao) {
+        this.materiaDao = materiaDao;
+    }
 
 
     @Override

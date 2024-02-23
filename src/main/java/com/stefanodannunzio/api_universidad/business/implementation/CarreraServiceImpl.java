@@ -12,8 +12,13 @@ import com.stefanodannunzio.api_universidad.persistence.exception.CarreraNotFoun
 @Service
 public class CarreraServiceImpl implements CarreraService {
 
-    @Autowired
+    
     private CarreraDao carreraDao;
+
+    @Autowired
+    public void setCarreraDao(CarreraDao carreraDao) {
+        this.carreraDao = carreraDao;
+    }
 
     @Override
     public Carrera crearCarrera(CarreraDto inputData) throws IllegalArgumentException {

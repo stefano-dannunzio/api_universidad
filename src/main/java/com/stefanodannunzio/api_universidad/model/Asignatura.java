@@ -12,6 +12,7 @@ public class Asignatura {
     private Materia materia;
     private EstadoAsignatura estado;
     private Integer nota;
+    private int id;
 
     private Profesor profesor;
 
@@ -24,6 +25,7 @@ public class Asignatura {
         this.materia = materia;
         this.estado = EstadoAsignatura.NO_CURSADA;
         this.nota = null;
+        this.id = materia.getMateriaId();
     }
 
     //Getters & Setters
