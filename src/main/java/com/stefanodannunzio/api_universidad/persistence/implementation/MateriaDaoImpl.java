@@ -2,6 +2,7 @@ package com.stefanodannunzio.api_universidad.persistence.implementation;
 
 import com.stefanodannunzio.api_universidad.model.Materia;
 import com.stefanodannunzio.api_universidad.persistence.MateriaDao;
+import com.stefanodannunzio.api_universidad.persistence.exception.CarreraNotFoundException;
 import com.stefanodannunzio.api_universidad.persistence.exception.MateriaNotFoundException;
 import org.springframework.stereotype.Repository;
 
@@ -10,10 +11,11 @@ import java.util.*;
 @Repository
 public class MateriaDaoImpl implements MateriaDao {
 
+
     private Map<Integer, Materia> materias = new HashMap<>();
 
     @Override
-    public Materia save(Materia materia) {
+    public Materia save(Materia materia) throws CarreraNotFoundException, MateriaNotFoundException {
         materias.put(materia.getMateriaId(), materia);
         return materia;
     }

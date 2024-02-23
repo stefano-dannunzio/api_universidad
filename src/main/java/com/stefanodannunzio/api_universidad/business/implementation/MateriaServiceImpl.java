@@ -8,22 +8,24 @@ import org.springframework.stereotype.Service;
 import com.stefanodannunzio.api_universidad.business.MateriaService;
 import com.stefanodannunzio.api_universidad.model.Materia;
 import com.stefanodannunzio.api_universidad.model.dto.MateriaDto;
+import com.stefanodannunzio.api_universidad.persistence.CarreraDao;
 import com.stefanodannunzio.api_universidad.persistence.MateriaDao;
+import com.stefanodannunzio.api_universidad.persistence.exception.CarreraNotFoundException;
 import com.stefanodannunzio.api_universidad.persistence.exception.MateriaNotFoundException;
 
 @Service
 public class MateriaServiceImpl implements MateriaService {
     
+    @Autowired
     private MateriaDao materiaDao;
 
+
     @Autowired
-    public void setMateriaDao(MateriaDao materiaDao) {
-        this.materiaDao = materiaDao;
-    }
+    private CarreraDao carreraDao;
 
 
     @Override
-    public Materia crearMateria(MateriaDto inputData) throws IllegalArgumentException {
+    public Materia crearMateria(MateriaDto inputData) throws IllegalArgumentException, CarreraNotFoundException, MateriaNotFoundException {
         Materia m = new Materia();
         m.setNombre(inputData.getNombre());
         m.setAnio(inputData.getAnio());
@@ -33,6 +35,7 @@ public class MateriaServiceImpl implements MateriaService {
         if (m.getNombre().contains("#")) {
             throw new IllegalArgumentException("No se pudo crear la materia");
         }
+        carreraDao.agregarMateria(m.getCarreraId(), m.getMateriaId());
         return m;
         
     }

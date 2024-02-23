@@ -3,10 +3,11 @@ package com.stefanodannunzio.api_universidad.persistence;
 import java.util.List;
 
 import com.stefanodannunzio.api_universidad.model.Materia;
+import com.stefanodannunzio.api_universidad.persistence.exception.CarreraNotFoundException;
 import com.stefanodannunzio.api_universidad.persistence.exception.MateriaNotFoundException;
 
 public interface MateriaDao {
-    Materia save(Materia materia);
+    Materia save(Materia materia) throws CarreraNotFoundException, MateriaNotFoundException;
 
     Materia update(Integer idMateria, Materia m) throws MateriaNotFoundException;
 

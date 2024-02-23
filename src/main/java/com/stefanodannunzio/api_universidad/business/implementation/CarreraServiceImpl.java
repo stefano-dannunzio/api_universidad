@@ -1,5 +1,7 @@
 package com.stefanodannunzio.api_universidad.business.implementation;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,5 +47,12 @@ public class CarreraServiceImpl implements CarreraService {
     public void eliminarCarrera(Integer id) throws CarreraNotFoundException {
         carreraDao.delete(id);
     }
+
+    @Override
+    public List<Carrera> listarCarreras() {
+        return carreraDao.listAll();
+    }
+
+    
     
 }

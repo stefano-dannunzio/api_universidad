@@ -1,6 +1,8 @@
 package com.stefanodannunzio.api_universidad.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,10 +37,16 @@ public class CarreraController {
     //Eliminar carrera
 
     @DeleteMapping("/{idCarrera}")
-    public ResponseEntity<Void> eliminarCarrera(@PathVariable int idCarrera) throws CarreraNotFoundException {
+    public ResponseEntity<String> eliminarCarrera(@PathVariable int idCarrera) throws CarreraNotFoundException {
         carreraService.eliminarCarrera(idCarrera);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("Carrera eliminada");
     }
 
+    // Listar carreras por id ascendentemente
+
+    @GetMapping("/listar")
+    public ResponseEntity<List<Carrera>> listarCarreras() {
+        return ResponseEntity.ok(carreraService.listarCarreras());
+    }
     
 }

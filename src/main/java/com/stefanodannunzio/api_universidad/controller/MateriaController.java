@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import com.stefanodannunzio.api_universidad.business.MateriaService;
 import com.stefanodannunzio.api_universidad.model.Materia;
 import com.stefanodannunzio.api_universidad.model.dto.MateriaDto;
+import com.stefanodannunzio.api_universidad.persistence.exception.CarreraNotFoundException;
 import com.stefanodannunzio.api_universidad.persistence.exception.MateriaNotFoundException;
 
 
@@ -24,7 +25,7 @@ public class MateriaController {
     //Crear materia
 
     @PostMapping
-    public ResponseEntity<Materia> crearMateria(@RequestBody MateriaDto materiaDto) {        
+    public ResponseEntity<Materia> crearMateria(@RequestBody MateriaDto materiaDto) throws IllegalArgumentException, CarreraNotFoundException, MateriaNotFoundException {        
         return ResponseEntity.status(HttpStatus.CREATED).body(materiaService.crearMateria(materiaDto));
 
     }
