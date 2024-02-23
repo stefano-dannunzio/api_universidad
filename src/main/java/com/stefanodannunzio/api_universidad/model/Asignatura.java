@@ -12,7 +12,7 @@ public class Asignatura {
     private Materia materia;
     private EstadoAsignatura estado;
     private Integer nota;
-    private int id;
+  
 
     private Profesor profesor;
 
@@ -25,7 +25,7 @@ public class Asignatura {
         this.materia = materia;
         this.estado = EstadoAsignatura.NO_CURSADA;
         this.nota = null;
-        this.id = materia.getMateriaId();
+        
     }
 
     //Getters & Setters
@@ -80,13 +80,8 @@ public class Asignatura {
         this.estado = EstadoAsignatura.CURSADA;
     }
 
-    public void aprobar(Integer nota) throws EstadoIncorrectoException, NotaIncorrectaException {
-        if (this.estado != EstadoAsignatura.CURSADA) {
-            throw new EstadoIncorrectoException("La asignatura no se encuentra cursada");
-        }
-        if (nota < 4 || nota > 10) {
-            throw new NotaIncorrectaException("La nota debe ser entre 4 y 10");
-        }
+    public void aprobar(Integer nota) {
+        
         this.estado = EstadoAsignatura.APROBADA;
         this.nota = nota;
     }

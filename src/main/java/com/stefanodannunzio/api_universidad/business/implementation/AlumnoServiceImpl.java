@@ -1,5 +1,7 @@
 package com.stefanodannunzio.api_universidad.business.implementation;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -71,9 +73,28 @@ public class AlumnoServiceImpl implements AlumnoService {
     }
 
     @Override
+    public boolean correlativasAprobadas(Integer dni, Integer asignaturaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException, MateriaNotFoundException {
+        Alumno a = alumnoDao.findByDNI(dni);
+        Asignatura asig = a.getAsignatura(asignaturaId);
+        List<Integer> correlativas = asig.getMateria().getCorrelativas();
+        for (Integer correlativa : correlativas) {
+            if (a.getNotaAsignatura(correlativa) < 4 || a.getNotaAsignatura(correlativa) == null){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
     public void aprobarAsignatura(Integer dni, Integer asignaturaId, int nota) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, EstadoIncorrectoException, NotaIncorrectaException, CorrelativasNoAprobadasException, MateriaNotFoundException {
         Alumno a = alumnoDao.findByDNI(dni);
-        a.aprobarAsignatura(asignaturaId, nota);
+        if (!correlativasAprobadas(dni, asignaturaId)){
+            throw new EstadoIncorrectoException("No se cumplen las correlativas");
+        } else if (nota < 4 || nota > 10){
+            throw new NotaIncorrectaException("La nota debe ser mayor o igual a 4 y menor o igual a 10");
+        } else {
+            a.aprobarAsignatura(asignaturaId, nota);
+        }
 
     }
 

@@ -84,45 +84,46 @@ public class Alumno {
         this.dni = dni;
     }
 
+    public List<Asignatura> getAsignaturas() {
+        return this.asignaturas;
+    }
+
+    public Asignatura getAsignatura(int id) {
+        return asignaturas.get(id - 1);
+    }
+
 
 
      // Otros metodos
 
      public void cursarAsignatura(int id) {
-         Asignatura asignatura = asignaturas.get(id);
+         Asignatura asignatura = asignaturas.get(id - 1);
          asignatura.cursar();         
      }
 
-     public boolean chequearCorrelativas(int id) {
-        for (Integer correlativa : asignaturas.get(id).getMateria().getCorrelativas()) {
-            if (asignaturas.get(correlativa).getEstado() != EstadoAsignatura.APROBADA) {
-                return false;
-            }
-        }
-        return true;
-     }
 
      public void aprobarAsignatura(int id, int nota) throws EstadoIncorrectoException, NotaIncorrectaException {
-         Asignatura asignatura = asignaturas.get(id);
-         if (chequearCorrelativas(id)) {
+         Asignatura asignatura = asignaturas.get(id - 1);
+         /* if (chequearCorrelativas(id)) {
              asignatura.aprobar(nota);
          } else {
              throw new EstadoIncorrectoException("No se cumplen las correlativas");
-         }
+         } */
+         asignatura.aprobar(nota);
         
      }
 
      public void perderAsignatura(int id) {
-        Asignatura asignatura = asignaturas.get(id);
+        Asignatura asignatura = asignaturas.get(id - 1);
         asignatura.perder();
     }
 
     public String getNombreAsignatura(Integer asignaturaId) {
-        return asignaturas.get(asignaturaId).getNombreMateria();
+        return asignaturas.get(asignaturaId - 1).getNombreMateria();
     }
 
     public Integer getNotaAsignatura(Integer asignaturaId) {
-        return asignaturas.get(asignaturaId).getNota().orElse(null);
+        return asignaturas.get(asignaturaId - 1).getNota().orElse(null);
     }
 
 
