@@ -72,29 +72,16 @@ public class AlumnoServiceImpl implements AlumnoService {
         a.cursarAsignatura(asignaturaId);
     }
 
-    @Override
-    public boolean correlativasAprobadas(Integer dni, Integer asignaturaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException, MateriaNotFoundException {
-        Alumno a = alumnoDao.findByDNI(dni);
-        Asignatura asig = a.getAsignatura(asignaturaId);
-        List<Integer> correlativas = asig.getMateria().getCorrelativas();
-        for (Integer correlativa : correlativas) {
-            if (a.getNotaAsignatura(correlativa) < 4 || a.getNotaAsignatura(correlativa) == null){
-                return false;
-            }
-        }
-        return true;
-    }
 
     @Override
     public void aprobarAsignatura(Integer dni, Integer asignaturaId, int nota) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, EstadoIncorrectoException, NotaIncorrectaException, CorrelativasNoAprobadasException, MateriaNotFoundException {
         Alumno a = alumnoDao.findByDNI(dni);
-        if (!correlativasAprobadas(dni, asignaturaId)){
-            throw new EstadoIncorrectoException("No se cumplen las correlativas");
-        } else if (nota < 4 || nota > 10){
-            throw new NotaIncorrectaException("La nota debe ser mayor o igual a 4 y menor o igual a 10");
-        } else {
-            a.aprobarAsignatura(asignaturaId, nota);
-        }
+
+         if (nota < 4 || nota > 10){
+                throw new NotaIncorrectaException("La nota debe ser mayor o igual a 4 y menor o igual a 10");
+            } else {
+                a.aprobarAsignatura(asignaturaId, nota);
+            }
 
     }
 

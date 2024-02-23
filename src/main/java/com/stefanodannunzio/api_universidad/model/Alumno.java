@@ -89,7 +89,7 @@ public class Alumno {
     }
 
     public Asignatura getAsignatura(int id) {
-        return asignaturas.get(id - 1);
+        return asignaturas.get(id);
     }
 
 
@@ -97,13 +97,13 @@ public class Alumno {
      // Otros metodos
 
      public void cursarAsignatura(int id) {
-         Asignatura asignatura = asignaturas.get(id - 1);
+         Asignatura asignatura = asignaturas.get(id);
          asignatura.cursar();         
      }
 
 
      public void aprobarAsignatura(int id, int nota) throws EstadoIncorrectoException, NotaIncorrectaException {
-         Asignatura asignatura = asignaturas.get(id - 1);
+         Asignatura asignatura = asignaturas.get(id);
          /* if (chequearCorrelativas(id)) {
              asignatura.aprobar(nota);
          } else {
@@ -114,16 +114,16 @@ public class Alumno {
      }
 
      public void perderAsignatura(int id) {
-        Asignatura asignatura = asignaturas.get(id - 1);
+        Asignatura asignatura = asignaturas.get(id);
         asignatura.perder();
     }
 
     public String getNombreAsignatura(Integer asignaturaId) {
-        return asignaturas.get(asignaturaId - 1).getNombreMateria();
+        return asignaturas.get(asignaturaId).getNombreMateria();
     }
 
     public Integer getNotaAsignatura(Integer asignaturaId) {
-        return asignaturas.get(asignaturaId - 1).getNota().orElse(null);
+        return asignaturas.get(asignaturaId).getNota().orElse(null);
     }
 
 
