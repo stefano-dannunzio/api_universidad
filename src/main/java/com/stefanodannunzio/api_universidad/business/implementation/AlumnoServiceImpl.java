@@ -52,6 +52,19 @@ public class AlumnoServiceImpl implements AlumnoService {
     }
 
     @Override
+    public String getNombreAsignatura(Integer dni, Integer asignaturaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException {
+        Alumno a = alumnoDao.findByDNI(dni);
+        return a.getNombreAsignatura(asignaturaId);
+    }
+
+    @Override
+    public Integer getNotaAsignatura(Integer dni, Integer asignaturaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException {
+        Alumno a = alumnoDao.findByDNI(dni);
+        return a.getNotaAsignatura(asignaturaId);
+    }
+
+
+    @Override
     public void cursarAsignatura(Integer dni, Integer asignaturaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException {
         Alumno a = alumnoDao.findByDNI(dni);
         a.cursarAsignatura(asignaturaId);

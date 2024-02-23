@@ -40,6 +40,13 @@ public class Alumno {
 
 
     public Alumno() {
+        asignaturas = Arrays.asList(
+                new Asignatura(new Materia("Matematica 1", 1, 1, Arrays.asList(), 1, 1)),
+                new Asignatura(new Materia("Matematica 2", 1, 2, Arrays.asList(1), 1, 2)),
+                new Asignatura(new Materia("Matematica 3", 2, 1, Arrays.asList(1, 2), 1, 3)),
+                new Asignatura(new Materia("Matematica 4", 2, 2, Arrays.asList(1, 2, 3), 1, 4))
+
+         );
         
     }
 
@@ -81,30 +88,41 @@ public class Alumno {
 
      // Otros metodos
 
-     @PostConstruct
-     public void init() {
-         asignaturas = Arrays.asList(
-                new Asignatura(new Materia("Matematica 1", 1, 1, Arrays.asList(), 1, 1)),
-                new Asignatura(new Materia("Matematica 2", 1, 2, Arrays.asList(1), 1, 2)),
-                new Asignatura(new Materia("Matematica 3", 2, 1, Arrays.asList(1, 2), 1, 3)),
-                new Asignatura(new Materia("Matematica 4", 2, 2, Arrays.asList(1, 2, 3), 1, 4))
-
-         );
-     }
-
      public void cursarAsignatura(int id) {
          Asignatura asignatura = asignaturas.get(id);
          asignatura.cursar();         
      }
 
+     public boolean chequearCorrelativas(int id) {
+        for (Integer correlativa : asignaturas.get(id).getMateria().getCorrelativas()) {
+            if (asignaturas.get(correlativa).getEstado() != EstadoAsignatura.APROBADA) {
+                return false;
+            }
+        }
+        return true;
+     }
+
      public void aprobarAsignatura(int id, int nota) throws EstadoIncorrectoException, NotaIncorrectaException {
          Asignatura asignatura = asignaturas.get(id);
-         asignatura.aprobar(nota);
+         if (chequearCorrelativas(id)) {
+             asignatura.aprobar(nota);
+         } else {
+             throw new EstadoIncorrectoException("No se cumplen las correlativas");
+         }
+        
      }
 
      public void perderAsignatura(int id) {
         Asignatura asignatura = asignaturas.get(id);
         asignatura.perder();
+    }
+
+    public String getNombreAsignatura(Integer asignaturaId) {
+        return asignaturas.get(asignaturaId).getNombreMateria();
+    }
+
+    public Integer getNotaAsignatura(Integer asignaturaId) {
+        return asignaturas.get(asignaturaId).getNota().orElse(null);
     }
 
 

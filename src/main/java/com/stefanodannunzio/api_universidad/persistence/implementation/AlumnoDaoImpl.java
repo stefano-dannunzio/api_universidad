@@ -43,8 +43,8 @@ public class AlumnoDaoImpl implements AlumnoDao{
         alumno.setNombre(a.getNombre());
         alumno.setApellido(a.getApellido());
         alumno.setDni(a.getDni());
-
-        alumnos.put(dni, alumno);
+        alumnos.remove(alumno.getDni());
+        alumnos.put(alumno.getDni(), alumno);
 
         return alumno;
     }
@@ -53,7 +53,7 @@ public class AlumnoDaoImpl implements AlumnoDao{
     public void delete(Integer dni) throws AlumnoNotFoundException {
         Alumno alumno = alumnos.get(dni);
         if (alumno == null) {
-            throw new AlumnoNotFoundException("No se encontró el alumno con el ID: " + dni);
+            throw new AlumnoNotFoundException("No se encontró el alumno con el DNI: " + dni);
         }
         alumnos.remove(dni);
 

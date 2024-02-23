@@ -24,6 +24,14 @@ public interface AlumnoService {
     
         void eliminarAlumno(Integer dni) throws AlumnoNotFoundException;
 
+        //Obtener nombre de asignatura
+
+        String getNombreAsignatura(Integer dni, Integer asignaturaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException;
+
+        //Obtener nota de asignatura
+
+        Integer getNotaAsignatura(Integer dni, Integer asignaturaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException;
+
         // Cursar asignatura
 
         void cursarAsignatura(Integer dni, Integer asignaturaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException;
