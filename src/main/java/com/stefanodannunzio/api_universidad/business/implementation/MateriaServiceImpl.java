@@ -35,6 +35,9 @@ public class MateriaServiceImpl implements MateriaService {
         if (m.getNombre().contains("#")) {
             throw new IllegalArgumentException("No se pudo crear la materia");
         }
+        if (carreraDao.findById(m.getCarreraId()) == null) {
+            throw new CarreraNotFoundException("No se encontró la carrera con el ID: " + m.getCarreraId());
+        }
         carreraDao.agregarMateria(m.getCarreraId(), m.getMateriaId());
         return m;
         

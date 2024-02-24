@@ -71,11 +71,8 @@ public class CarreraDaoImpl implements CarreraDao {
     
 
     @Override
-    public void agregarMateria(Integer idCarrera, Integer idMateria) throws CarreraNotFoundException, MateriaNotFoundException {
+    public void agregarMateria(Integer idCarrera, Integer idMateria) throws MateriaNotFoundException {
         Carrera carrera = carreras.get(idCarrera);
-        if (carrera == null) {
-            throw new CarreraNotFoundException("No se encontró la carrera con el ID: " + idCarrera);
-        }
         carrera.getMaterias().add(materiaDao.findById(idMateria));
     }
 

@@ -29,6 +29,9 @@ public class CarreraServiceImpl implements CarreraService {
         c.setDepartamentoId(inputData.getDepartamentoId());
         c.setCuatrimestres(inputData.getCuatrimestres());
         carreraDao.save(c);
+        if (c.getNombre().contains("#")) {
+            throw new IllegalArgumentException("No se pudo crear la carrera");
+        }
         return c;
     }
 
