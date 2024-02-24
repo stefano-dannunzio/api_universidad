@@ -2,6 +2,8 @@ package com.stefanodannunzio.api_universidad.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -35,6 +37,7 @@ public class Materia {
 
     // Getters & Setters
 
+    @JsonIgnore
     public int getMateriaId() {
         return this.materiaId;
     }

@@ -27,7 +27,7 @@ public interface MateriaService {
 
     // Listar todas las materias ordenadas por nombre ascendente o descendente y código ascendente o descendente
 
-    List<Materia> listarMaterias(String order) throws MateriaNotFoundException;
+    List<Materia> listarMaterias(String order);
 
     void agregarCorrelativa(int idMateria, int idCorrelativa);
 

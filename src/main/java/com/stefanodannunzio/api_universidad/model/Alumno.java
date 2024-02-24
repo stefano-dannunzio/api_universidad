@@ -25,18 +25,7 @@ public class Alumno {
     private List<Asignatura> asignaturas;
 
 
-    private AlumnoDao alumnoDao;
-    private MateriaDao materiaDao;
-    
-    @Autowired
-    public void setAlumnoDao(AlumnoDao alumnoDao) {
-        this.alumnoDao = alumnoDao;
-    }
 
-    @Autowired
-    public void setMateriaDao(MateriaDao materiaDao) {
-        this.materiaDao = materiaDao;
-    }
 
 
     public Alumno() {
@@ -121,5 +110,12 @@ public class Alumno {
         return asignaturas.get(asignaturaId).getNota().orElse(null);
     }
 
-
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!(obj instanceof Alumno other))
+            return false;
+        return dni == other.dni;
+    }
 }

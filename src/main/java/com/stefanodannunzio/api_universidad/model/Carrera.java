@@ -1,6 +1,8 @@
 package com.stefanodannunzio.api_universidad.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +40,7 @@ public class Carrera {
         this.nombre = nombre;
     }
 
+    @JsonIgnore
     public int getId() {
         return this.id;
     }
@@ -82,6 +85,22 @@ public class Carrera {
 
     public void eliminarMateria(Materia materia) {
         materias.remove(materia);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Carrera other = (Carrera) obj;
+        return id == other.id;
+
     }
 
     

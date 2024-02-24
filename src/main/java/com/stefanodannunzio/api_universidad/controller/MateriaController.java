@@ -55,14 +55,14 @@ public class MateriaController {
     //Listar todas las materias ordenadas por nombre ascendente o descendente y código ascendente o descendente
 
     @GetMapping()
-    public ResponseEntity<List<Materia>> listarMaterias(@RequestParam String order) throws MateriaNotFoundException {
+    public ResponseEntity<List<Materia>> listarMaterias(@RequestParam String order) {
         return ResponseEntity.ok(materiaService.listarMaterias(order));
     }
 
     //Agregar correlativa
 
     @PutMapping("/{idMateria}/correlativas/{idCorrelativa}")
-    public ResponseEntity<Void> agregarCorrelativa(@PathVariable int idMateria, @PathVariable int idCorrelativa) throws MateriaNotFoundException {
+    public ResponseEntity<Void> agregarCorrelativa(@PathVariable int idMateria, @PathVariable int idCorrelativa) {
         materiaService.agregarCorrelativa(idMateria, idCorrelativa);
         return ResponseEntity.noContent().build();
     }
@@ -70,7 +70,7 @@ public class MateriaController {
     //Eliminar correlativa
 
     @DeleteMapping("/{idMateria}/correlativas/{idCorrelativa}")
-    public ResponseEntity<Void> eliminarCorrelativa(@PathVariable int idMateria, @PathVariable int idCorrelativa) throws MateriaNotFoundException {
+    public ResponseEntity<Void> eliminarCorrelativa(@PathVariable int idMateria, @PathVariable int idCorrelativa) {
         materiaService.eliminarCorrelativa(idMateria, idCorrelativa);
         return ResponseEntity.noContent().build();
     }

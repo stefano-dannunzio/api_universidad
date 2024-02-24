@@ -65,7 +65,7 @@ public class MateriaServiceImpl implements MateriaService {
     }
 
     @Override
-    public List<Materia> listarMaterias(String order) throws MateriaNotFoundException {
+    public List<Materia> listarMaterias(String order) {
         return materiaDao.sortAll(order);
     }
 
