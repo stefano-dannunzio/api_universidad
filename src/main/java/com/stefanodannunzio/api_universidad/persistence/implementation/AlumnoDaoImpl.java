@@ -1,13 +1,9 @@
 package com.stefanodannunzio.api_universidad.persistence.implementation;
 
 import com.stefanodannunzio.api_universidad.model.Alumno;
-import com.stefanodannunzio.api_universidad.model.Asignatura;
-import com.stefanodannunzio.api_universidad.model.EstadoAsignatura;
-import com.stefanodannunzio.api_universidad.model.Materia;
 import com.stefanodannunzio.api_universidad.persistence.AlumnoDao;
 import com.stefanodannunzio.api_universidad.persistence.MateriaDao;
 import com.stefanodannunzio.api_universidad.persistence.exception.AlumnoNotFoundException;
-import com.stefanodannunzio.api_universidad.persistence.exception.MateriaNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

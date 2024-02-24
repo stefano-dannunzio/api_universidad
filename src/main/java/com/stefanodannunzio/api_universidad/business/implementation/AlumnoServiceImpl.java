@@ -21,12 +21,13 @@ import com.stefanodannunzio.api_universidad.persistence.exception.MateriaNotFoun
 public class AlumnoServiceImpl implements AlumnoService {
 
     
-    private AlumnoDao alumnoDao;
+    private final AlumnoDao alumnoDao;
 
     @Autowired
-    public void setAlumnoDao(AlumnoDao alumnoDao) {
+    public AlumnoServiceImpl(AlumnoDao alumnoDao) {
         this.alumnoDao = alumnoDao;
     }
+
 
     @Override
     public Alumno crearAlumno(AlumnoDto inputData) throws IllegalArgumentException {
@@ -67,7 +68,7 @@ public class AlumnoServiceImpl implements AlumnoService {
 
 
     @Override
-    public void cursarAsignatura(Integer dni, Integer asignaturaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, CorrelativasNoAprobadasException {
+    public void cursarAsignatura(Integer dni, Integer asignaturaId) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException {
         if (asignaturaId < 0 || asignaturaId > 3){
             throw new AsignaturaNotFoundException("No se encontró la asignatura con el ID: " + asignaturaId);
         }
@@ -77,7 +78,7 @@ public class AlumnoServiceImpl implements AlumnoService {
 
 
     @Override
-    public void aprobarAsignatura(Integer dni, Integer asignaturaId, int nota) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, EstadoIncorrectoException, NotaIncorrectaException, CorrelativasNoAprobadasException, MateriaNotFoundException {
+    public void aprobarAsignatura(Integer dni, Integer asignaturaId, int nota) throws IllegalArgumentException, AlumnoNotFoundException, AsignaturaNotFoundException, EstadoIncorrectoException, NotaIncorrectaException {
         if (asignaturaId < 0 || asignaturaId > 3){
             throw new AsignaturaNotFoundException("No se encontró la asignatura con el ID: " + asignaturaId);
         }
